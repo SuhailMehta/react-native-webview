@@ -1203,11 +1203,20 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     @Override
     public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
 
-      final WebView newWebView = new WebView(view.getContext());
-      final WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+      WebView newWebView = new WebView(view.getContext());
+      view.addView(newWebView);
+      WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
       transport.setWebView(newWebView);
       resultMsg.sendToTarget();
-
+      newWebView.setWebViewClient(new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view1, String url) {
+          Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+          browserIntent.setData(Uri.parse(url));
+          view.getContext().startActivity(browserIntent);
+          return true;
+        }
+      });
       return true;
     }
 
