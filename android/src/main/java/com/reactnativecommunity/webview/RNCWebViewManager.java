@@ -1212,9 +1212,9 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       newWebView.setWebViewClient(new WebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view1, String url) {
-          Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-          browserIntent.setData(Uri.parse(url));
-          view.getContext().startActivity(browserIntent);
+          Intent intent = new Intent(mReactContext, WebViewActivity.class);
+          intent.putExtra(WebViewActivity.URL_NAME_PARAM, Uri.parse(url));
+          view.getContext().startActivity(intent);
           return true;
         }
       });

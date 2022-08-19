@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.reactnativecommunity.webview">
 
   <application>
@@ -11,5 +12,13 @@
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/file_provider_paths" />
     </provider>
+
+    <activity
+      android:name=".WebViewActivity"
+      android:label="App"
+      android:screenOrientation="portrait"
+      android:theme="@style/WebAppTheme.NoActionBar"
+      android:windowSoftInputMode="stateHidden|adjustResize"
+      tools:ignore="LockedOrientationActivity" />
   </application>
 </manifest>
