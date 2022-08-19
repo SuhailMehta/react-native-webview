@@ -1,7 +1,9 @@
 package com.reactnativecommunity.webview
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Message
 import android.webkit.WebChromeClient
@@ -78,7 +80,18 @@ class WebViewActivity : AppCompatActivity() {
             request: WebResourceRequest?
           ): Boolean {
             val url = request?.url.toString()
-            view?.loadUrl(url)
+            if (url.startsWith("https") || url.startsWith("http")) {
+              dialog.show()
+              view?.loadUrl(url)
+            } else {
+              try {
+                val browseIntent = Intent(Intent.ACTION_VIEW)
+                browseIntent.data = Uri.parse(url)
+                this@WebViewActivity.startActivity(browseIntent)
+              } catch (e: Exception) {
+                // Do nothing
+              }
+            }
             return super.shouldOverrideUrlLoading(view, request)
           }
         }
@@ -90,7 +103,6 @@ class WebViewActivity : AppCompatActivity() {
           }
         }
         resultMsg.sendToTarget()
-        dialog.show()
         return true
       }
 
@@ -107,5 +119,10 @@ class WebViewActivity : AppCompatActivity() {
     } else {
       super.onBackPressed()
     }
+  }
+
+  override fun onNavigateUp(): Boolean {
+    onBackPressed()
+    return true
   }
 }
