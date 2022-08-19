@@ -1,19 +1,20 @@
 package com.reactnativecommunity.webview
 
+import android.R
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Message
+import android.view.MenuItem
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.reactnativecommunity.webview.R.*
+import com.reactnativecommunity.webview.R.id
+import com.reactnativecommunity.webview.R.layout
 
 
 class WebViewActivity : AppCompatActivity() {
@@ -121,8 +122,11 @@ class WebViewActivity : AppCompatActivity() {
     }
   }
 
-  override fun onNavigateUp(): Boolean {
-    onBackPressed()
-    return true
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    // handle arrow click here
+    if (item.itemId == R.id.home) {
+      onBackPressed()
+    }
+    return super.onOptionsItemSelected(item)
   }
 }
