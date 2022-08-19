@@ -38,7 +38,9 @@ class WebViewActivity : AppCompatActivity() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.setDisplayShowHomeEnabled(true)
 
-    webView.loadUrl(intent.getStringExtra(URL_NAME_PARAM)!!)
+    intent.getStringExtra(URL_NAME_PARAM)?.let {
+      webView.loadUrl(it)
+    }
 
     val settings = webView.settings
     settings.setSupportMultipleWindows(true)
@@ -49,8 +51,6 @@ class WebViewActivity : AppCompatActivity() {
       override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         return false
       }
-
-
     }
 
     webView.webChromeClient = object : WebChromeClient() {
@@ -60,13 +60,9 @@ class WebViewActivity : AppCompatActivity() {
         isUserGesture: Boolean,
         resultMsg: Message?
       ): Boolean {
-        println("---------- in web view")
-//                val newWebView = WebView(this@WebViewActivity)
-//                view?.addView(newWebView)
         val dialog = Dialog(this@WebViewActivity, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
         dialog.setContentView(layout.layout_dialog_webview)
         var newWebView = dialog.findViewById<WebView>(id.wv_web_view_fragment_main_dialog)
-//                addView(this@WebViewActivity, newWebView)
         val transport = resultMsg?.obj as WebView.WebViewTransport
         transport.webView = newWebView
 
@@ -84,16 +80,6 @@ class WebViewActivity : AppCompatActivity() {
             val url = request?.url.toString()
             view?.loadUrl(url)
             return super.shouldOverrideUrlLoading(view, request)
-          }
-
-          override fun onPageFinished(view: WebView?, url: String?) {
-            super.onPageFinished(view, url)
-          }
-
-          override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            println("---------- in web view $url")
-            Toast.makeText(this@WebViewActivity, url, Toast.LENGTH_LONG).show()
-            super.onPageStarted(view, url, favicon)
           }
         }
 
@@ -122,5 +108,4 @@ class WebViewActivity : AppCompatActivity() {
       super.onBackPressed()
     }
   }
-
 }
