@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.reactnativecommunity.webview.R.id
 import com.reactnativecommunity.webview.R.layout
+import com.reactnativecommunity.webview.data.database.CoreDataBase
 
 
 class WebViewActivity : AppCompatActivity() {
@@ -55,6 +56,13 @@ class WebViewActivity : AppCompatActivity() {
         return false
       }
     }
+
+    webView.addJavascriptInterface(
+      LocalStorageJavaScriptInterface(
+        this,
+        CoreDataBase.getInstance(this)
+      ), "LocalStorage"
+    )
 
     webView.webChromeClient = object : WebChromeClient() {
       override fun onCreateWindow(

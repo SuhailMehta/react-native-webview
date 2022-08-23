@@ -78,6 +78,7 @@ import com.facebook.react.uimanager.events.ContentSizeChangeEvent;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.EventDispatcher;
 import com.reactnativecommunity.webview.RNCWebViewModule.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState;
+import com.reactnativecommunity.webview.data.database.CoreDataBase;
 import com.reactnativecommunity.webview.events.TopLoadingErrorEvent;
 import com.reactnativecommunity.webview.events.TopHttpErrorEvent;
 import com.reactnativecommunity.webview.events.TopLoadingFinishEvent;
@@ -195,6 +196,8 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
 
     settings.setAllowFileAccess(false);
     settings.setAllowContentAccess(false);
+
+        webView.addJavascriptInterface(new LocalStorageJavaScriptInterface(reactContext, CoreDataBase.Companion.getInstance(reactContext)), "LocalStorage");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
       settings.setAllowFileAccessFromFileURLs(false);
       setAllowUniversalAccessFromFileURLs(webView, false);
