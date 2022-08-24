@@ -1,4 +1,4 @@
-package com.phonepe.business.depository.core.localstorage
+package com.reactnativecommunity.webview.data.localstorage
 
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo
@@ -14,5 +14,5 @@ data class LocalStorageEntity(
     val _id: String,
 
     @ColumnInfo(name = "value")
-    val value: String
+    val value: String?
 )

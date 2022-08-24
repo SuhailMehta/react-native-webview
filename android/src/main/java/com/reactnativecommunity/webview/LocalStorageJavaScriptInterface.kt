@@ -2,7 +2,7 @@ package com.reactnativecommunity.webview
 
 import android.content.Context
 import android.webkit.JavascriptInterface
-import com.phonepe.business.depository.core.localstorage.LocalStorageEntity
+import com.reactnativecommunity.webview.data.localstorage.LocalStorageEntity
 import com.reactnativecommunity.webview.data.database.CoreDataBase
 
 class LocalStorageJavaScriptInterface(val context: Context, private val coreDataBase: CoreDataBase) {

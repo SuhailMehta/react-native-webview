@@ -6,8 +6,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.phonepe.business.depository.core.localstorage.LocalStorageDao
-import com.phonepe.business.depository.core.localstorage.LocalStorageEntity
+import com.reactnativecommunity.webview.data.localstorage.LocalStorageDao
+import com.reactnativecommunity.webview.data.localstorage.LocalStorageEntity
 import com.reactnativecommunity.webview.data.database.CoreDataBase.Companion.VERSION
 
 @Database(

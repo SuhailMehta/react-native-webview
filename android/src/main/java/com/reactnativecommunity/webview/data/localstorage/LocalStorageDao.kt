@@ -1,4 +1,4 @@
-package com.phonepe.business.depository.core.localstorage
+package com.reactnativecommunity.webview.data.localstorage
 
 import androidx.room.Dao
 import androidx.room.Insert
