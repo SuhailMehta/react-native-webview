@@ -37,7 +37,7 @@ abstract class CoreDataBase : RoomDatabase() {
     }
 
     private fun buildDataBase(context: Context): CoreDataBase {
-      val builder = Room.databaseBuilder(context, CoreDataBase::class.java, DATABASE_NAME)
+      val builder = Room.databaseBuilder(context.applicationContext, CoreDataBase::class.java, DATABASE_NAME)
         .addCallback(object : RoomDatabase.Callback() {
           override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
