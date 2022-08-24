@@ -7,39 +7,45 @@ import com.reactnativecommunity.webview.data.database.CoreDataBase
 
 class LocalStorageJavaScriptInterface(val context: Context, private val coreDataBase: CoreDataBase) {
 
-    /**
-    * This method allows to get an item for the given key
-    * @param key : the key to look for in the local storage
-    * @return the item having the given key
-    */
-    @JavascriptInterface
-    fun getItem(key: String): String? {
-        return coreDataBase.getLocalStorageDao().getKey(key)
-    }
+  /**
+   * This method allows to get an item for the given key
+   * @param key : the key to look for in the local storage
+   * @return the item having the given key
+   */
+  @JavascriptInterface
+  fun getItem(key: String): String? {
 
-    /**
-     * set the value for the given key, or create the set of datas if the key does not exist already.
-     * @param key
-     * @param value
-     */
-    @JavascriptInterface
-    fun setItem(key: String,value: String) {
+    val result = coreDataBase.getLocalStorageDao().getKey(key)
+    println("----- $key $result")
+    return result
+  }
 
-        try {
-            val localStorageEntity = LocalStorageEntity(key, value)
-            coreDataBase.getLocalStorageDao().insert(localStorageEntity)
-        } catch (e: Exception) {
-            //FirebaseCrashlytics.getInstance().recordException(e)
-        }
-    }
+  /**
+   * set the value for the given key, or create the set of datas if the key does not exist already.
+   * @param key
+   * @param value
+   */
+  @JavascriptInterface
+  fun setItem(key: String,value: String) {
 
-    /**
-     * removes the item corresponding to the given key
-     * @param key
-     */
-    @JavascriptInterface
-    fun removeItem(key: String) {
-        coreDataBase.getLocalStorageDao().delete(key)
+    try {
+      val localStorageEntity = LocalStorageEntity(key, value)
+      coreDataBase.getLocalStorageDao().insert(localStorageEntity)
+      println("----- insert $key $value")
+    } catch (e: Exception) {
+      println("----- ${e.printStackTrace()}")
+      //FirebaseCrashlytics.getInstance().recordException(e)
     }
+  }
+
+  /**
+   * removes the item corresponding to the given key
+   * @param key
+   */
+  @JavascriptInterface
+  fun removeItem(key: String) {
+    println("----- delete $key")
+    coreDataBase.getLocalStorageDao().delete(key)
+  }
 
 }
